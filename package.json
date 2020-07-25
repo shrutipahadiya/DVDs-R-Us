@@ -1,0 +1,45 @@
+{
+  "name": "DVDs-R-Us",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/nickcarr51/DVDs-R-Us.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/nickcarr51/DVDs-R-Us/issues"
+  },
+  "homepage": "https://github.com/nickcarr51/DVDs-R-Us#readme",
+  "dependencies": {
+    "axios": "^0.19.2",
+    "express": "^4.17.1",
+    "node-dev": "^5.0.0",
+    "pg": "^8.3.0",
+    "react": "^16.13.1",
+    "react-dom": "^16.13.1",
+    "react-redux": "^7.2.0",
+    "react-router-dom": "^5.2.0",
+    "redux": "^4.0.5",
+    "redux-thunk": "^2.3.0",
+    "sequelize": "^6.3.3"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.10.5",
+    "@babel/plugin-proposal-class-properties": "^7.10.4",
+    "@babel/plugin-proposal-private-methods": "^7.10.4",
+    "@babel/plugin-transform-runtime": "^7.10.5",
+    "@babel/preset-env": "^7.10.4",
+    "@babel/preset-react": "^7.10.4",
+    "@babel/runtime": "^7.10.5",
+    "babel-loader": "^8.1.0",
+    "webpack": "^4.44.0",
+    "webpack-cli": "^3.3.12"
+  }
+}
