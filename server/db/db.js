@@ -60,7 +60,7 @@ const User = db.define('User', {
 })
 
 const Movie = db.define('Vendor', {
-  // Nick tow work on this //
+  // Nick to work on this //
 })
 
 const seed = async (force = false) => {
@@ -78,9 +78,8 @@ seed()
 User.hasMany(Movie,{ foreignKey: 'MovieId'})
 
 module.exports = {
-  sync,
   db,
   seed,
-  Customer,
-  Vendor
+  User,
+  Movie,
 };
