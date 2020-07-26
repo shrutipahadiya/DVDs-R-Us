@@ -1,10 +1,10 @@
 {
-  "name": "DVDs-R-Us",
+  "name": "dvds-r-us",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "build": "webpack --watch"
   },
   "repository": {
     "type": "git",
@@ -20,6 +20,7 @@
   "dependencies": {
     "axios": "^0.19.2",
     "express": "^4.17.1",
+    "imdb-api": "^4.1.1",
     "node-dev": "^5.0.0",
     "pg": "^8.3.0",
     "react": "^16.13.1",
