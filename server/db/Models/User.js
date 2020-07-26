@@ -39,7 +39,9 @@ const User = db.define('User', {
     email: {
         type: STRING,
         allowNull: false,
-        isEmail: true,
+        validate: {
+            isEmail: true
+        }
     },
     cart: {
         type: Sequelize.ARRAY,
