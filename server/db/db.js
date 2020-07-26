@@ -46,6 +46,7 @@ const User = db.define('User', {
     email: {
         type: STRING,
         allowNull: false,
+        isEmail: true,
     },
     cart: {
         type: Sequelize.ARRAY,
@@ -56,7 +57,23 @@ const User = db.define('User', {
         type: Sequelize.ARRAY,
         allowNull: false,
         defaultValue  = []
-    }
+    },
+    shippingAddressStreet: {
+        type: STRING,
+        allowNull: true,
+      },
+      shippingAddressUnit: {
+        type:STRING,
+        allowNull: true,
+      },
+      shippingAddressZIP: {
+        type: INTEGER,
+        allowNull: true,
+      },
+      shippingAddressCity: {
+        type:STRING,
+        allowNull: true,
+      },
 })
 
 const Movie = db.define('Vendor', {
