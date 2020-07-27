@@ -4,7 +4,9 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "build": "webpack --watch"
+    "build": "webpack --watch",
+    "server": "./node_modules/.bin/node-dev --respawn ./server/api/index.js",
+    "start-dev": "npm run build & npm run server"
   },
   "repository": {
     "type": "git",

@@ -1,6 +1,6 @@
 const Sequelize = require('sequelize');
 const chalk = require('chalk');
-const { UUID, UUIDV4, STRING, TEXT, ARRAY, DATEONLY, INTEGER} = Sequelize;
+const { STRING, TEXT, ARRAY, DATEONLY, INTEGER } = Sequelize;
 
 const NO_IMAGE_AVAILABLE = 'https://thumbs.dreamstime.com/b/no-image-available-icon-photo-camera-flat-vector-illustration-132483141.jpg';
 
