@@ -5,6 +5,10 @@ module.exports = {
     watch: true,
     devtool: 'source-map',
     entry: path.join(__dirname, './client/index.js'),
+    output: {
+        filename: 'main.js',
+        path: path.join(__dirname, './dist'),
+      },
     module: {
         rules: [
             {
