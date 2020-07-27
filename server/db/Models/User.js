@@ -1,5 +1,6 @@
 const Sequelize = require('sequelize');
 const { UUID, UUIDV4, STRING, INTEGER } = Sequelize;
+const { db } = require('../db');
 
 const User = db.define('User', {
     id: {
@@ -45,13 +46,9 @@ const User = db.define('User', {
     },
     cart: {
         type: Sequelize.ARRAY,
-        allowNull: false,
-        defaultValue =[],
     },
     previousOrders: {
         type: Sequelize.ARRAY,
-        allowNull: false,
-        defaultValue  =[]
     },
     shippingAddressStreet: {
         type: STRING,
@@ -71,4 +68,4 @@ const User = db.define('User', {
     },
 })
 
-export default User;
+module.exports = { User }

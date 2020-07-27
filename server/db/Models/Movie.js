@@ -1,6 +1,6 @@
 const Sequelize = require('sequelize');
-const chalk = require('chalk');
 const { STRING, TEXT, ARRAY, DATEONLY, INTEGER } = Sequelize;
+const { db } = require('../db');
 
 const NO_IMAGE_AVAILABLE = 'https://thumbs.dreamstime.com/b/no-image-available-icon-photo-camera-flat-vector-illustration-132483141.jpg';
 
@@ -116,4 +116,4 @@ const Movie = db.define('movie', {
 
 })
 
-export default Movie;
+module.exports = { Movie }
