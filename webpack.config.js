@@ -4,7 +4,7 @@ module.exports = {
     mode: 'development',
     watch: true,
     devtool: 'source-map',
-    /* entry: (will add after folder structure created) */
+    entry: path.join(__dirname, './client/index.js'),
     module: {
         rules: [
             {

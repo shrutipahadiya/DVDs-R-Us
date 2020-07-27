@@ -1,8 +1,8 @@
-const apiRouter = require('express').Router();
+// const apiRouter = require('express').Router();
 
-apiRouter.use('/movies', require('./movies'));
-apiRouter.use('/users', require('./users'));
+// apiRouter.use('/movies', require('./movies'));
+// apiRouter.use('/users', require('./users'));
 
-module.exports = {
-  apiRouter,
-};
+// module.exports = {
+//   apiRouter,
+// };
