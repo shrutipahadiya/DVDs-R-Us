@@ -5,10 +5,10 @@
   "main": "index.js",
   "scripts": {
     "start": "node server/api/index.js",
-    "build": "webpack --watch",
-    "start:client": "webpack --watch",
+    "build": "webpack --mode=\"production\"",
+    "build:watch": "webpack --watch",
     "start:server": "node-dev --respawn ./server/api/index.js",
-    "start:dev": "npm run start:client & npm run start:server"
+    "start:dev": "npm run build:watch & npm run start:server"
   },
   "repository": {
     "type": "git",
