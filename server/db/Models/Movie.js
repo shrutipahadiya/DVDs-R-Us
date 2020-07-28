@@ -1,11 +1,11 @@
 const Sequelize = require('sequelize');
-const { STRING, TEXT, ARRAY, DATEONLY, INTEGER } = Sequelize;
+const { STRING, TEXT, ARRAY, DATEONLY, INTEGER, DECIMAL } = Sequelize;
 const { db } = require('../db');
 
 const NO_IMAGE_AVAILABLE = 'https://thumbs.dreamstime.com/b/no-image-available-icon-photo-camera-flat-vector-illustration-132483141.jpg';
 
 const Movie = db.define('movie', {
-    name: {
+    title: {
         type: STRING,
         allowNull: false,
         validate: {
@@ -13,14 +13,14 @@ const Movie = db.define('movie', {
         }
     },
     director: {
-        type: STRING,
+        type: ARRAY(STRING),
         allowNull: false,
         validate: {
             notEmpty: true
         }
     },
     actors: {
-        type: STRING,
+        type: ARRAY(STRING),
         allowNull: false,
         validate: {
             notEmpty: true
@@ -40,6 +40,7 @@ const Movie = db.define('movie', {
     id: {
         type: STRING,
         allowNull: false,
+        primaryKey: true,
         validate: {
             notEmpty: true
         }
@@ -67,7 +68,7 @@ const Movie = db.define('movie', {
         defaultValue: 'This film is not rated'
     },
     rating: { 
-        type: INTEGER,
+        type: DECIMAL,
         defaultValue: 0
     },
     production: {
@@ -91,13 +92,6 @@ const Movie = db.define('movie', {
             notEmpty: true
         }
     },
-    title: {
-        type: STRING,
-        allowNull: false,
-        validate: {
-            notEmpty: true
-        }
-    },
     //will need to .split(', ') on writers string here as well
     writer: {
         type: ARRAY(STRING),
@@ -112,7 +106,7 @@ const Movie = db.define('movie', {
         validate: {
             notEmpty: true
         }
-    }
+    },
 
 })
 
