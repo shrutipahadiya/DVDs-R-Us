@@ -12,7 +12,7 @@ const DIST_PATH = path.join(__dirname, '../../dist');
 app.use(express.json());
 app.use(express.static(PUBLIC_PATH));
 app.use(express.static(DIST_PATH));
-// app.use('/api', require('./routers/index'));
+app.use('/api', require('./routers/index'));
 
 app.get('*', (req, res) => {
   res.sendFile(path.join(PUBLIC_PATH, './index.html'));
