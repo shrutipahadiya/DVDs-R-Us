@@ -8,7 +8,7 @@
     "build": "webpack --watch",
     "start:client": "webpack --watch",
     "start:server": "node-dev --respawn ./server/api/index.js",
-    "start:dev": "npm start:client & npm start:server"
+    "start:dev": "npm run start:client & npm run start:server"
   },
   "repository": {
     "type": "git",
