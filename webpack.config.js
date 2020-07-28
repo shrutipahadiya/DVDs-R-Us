@@ -2,7 +2,7 @@ const path = require('path');
 
 module.exports = {
     mode: 'development',
-    watch: true,
+    // watch: true,
     devtool: 'source-map',
     entry: path.join(__dirname, './client/index.js'),
     output: {
