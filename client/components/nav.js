@@ -6,6 +6,9 @@ const Nav = () => {
   return (
     <div>
       <nav className="navDiv">
+        <Link to="/about" style={{ color: "white" }}>
+          About
+          </Link>
         <Link to="/search" style={{ color: "white" }}>
           Search
         </Link>

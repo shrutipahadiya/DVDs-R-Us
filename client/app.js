@@ -5,6 +5,7 @@ import Nav from "./components/Nav";
 import Search from './components/search';
 import Browse from './components/browse';
 import MoviePage from './components/moviePage';
+import About from './components/About'
 
 
 export default class App extends Component {
@@ -16,6 +17,7 @@ export default class App extends Component {
             <Route component={Nav} />
           </div>
           <Switch>
+            <Route exact path= '/about' component ={About}/>
             <Route exact path='/search' render={()=><Search/>}/>
             <Route exact path='/browse' render={(props) => <Browse props={ props } />}/>
             <Route path='/browse/:id?' render={(props) => <MoviePage props={ props } />}/>
