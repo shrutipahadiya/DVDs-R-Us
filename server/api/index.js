@@ -2,7 +2,7 @@ const path = require('path');
 const express = require('express');
 const chalk = require('chalk');
 const app = require('./server');
-const { db } = require('../db/db')
+const { db } = require('../db/db');
 // const app = express()
 
 const PORT = process.env.PORT || 3000;
@@ -16,8 +16,7 @@ app.use('/api', require('./routers/index'));
 
 app.get('*', (req, res) => {
   res.sendFile(path.join(PUBLIC_PATH, './index.html'));
-})
-
+});
 
 // const startServer = () => new Promise((res) => {
 //   app.listen(PORT, () => {
@@ -26,14 +25,12 @@ app.get('*', (req, res) => {
 //   });
 // });
 
-
-
 db.sync()
   .then(() => {
     app.listen(PORT, () => {
       console.log(chalk.greenBright(`Server is now listening on PORT:${PORT}`));
-    })
-  })
+    });
+  });
 
 module.exports = {
   app,
