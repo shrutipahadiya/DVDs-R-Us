@@ -1,0 +1,72 @@
+body {
+    font-family: verdana;
+}
+
+.navDiv {
+    display: flex;
+    justify-content: space-around;
+    color: white !important;
+    background-color: dodgerblue;
+    align-items: center;
+    height: 50px;
+}
+
+input,
+select,
+button {
+    height: 1.75rem;
+    font-size: 1rem;
+}
+
+form {
+    padding: 1rem;
+    width: 40%;
+    border-radius: 5px;
+    display: flex;
+    flex-direction: column;
+    margin: auto;
+}
+
+form>div {
+    display: flex;
+    margin-bottom: 1rem;
+}
+
+form>div>label {
+    flex: 1;
+    display: flex;
+    font-weight: bold;
+}
+
+form>div>input,
+select {
+    flex: 3;
+}
+
+
+.outerBox {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    align-items: center;
+    flex-direction: row;
+}
+
+.innerBox {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    border: 1px solid black;
+    align-items: center;
+    border-radius: 5%;
+    width: 25%;
+    height: 25%;
+    margin: 3px;
+    padding: 3px;
+}
+
+.backLink:hover {
+    text-decoration: underline;
+    cursor: pointer;
+}
