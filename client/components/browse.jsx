@@ -89,7 +89,7 @@ class Browse extends Component {
 
 Browse.propTypes = {
   getMovies: propTypes.func.isRequired,
-  movies: propTypes.arrayOf().isRequired,
+  movies: propTypes.arrayOf(propTypes.object).isRequired,
   // props: propTypes.object.isRequired,
   props: propTypes.shape({
     match: propTypes.shape({
