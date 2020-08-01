@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { Link } from 'react-router-dom';
 import propTypes from 'prop-types';
 import { getMovies } from '../redux/movies/actions';
 import { generateGenres, movieFilter } from '../utilities';
+import singleMovieBox from './singleMovieBox';
 
 class Browse extends Component {
   constructor() {
@@ -27,11 +27,6 @@ class Browse extends Component {
     console.log('browser props: ', this.props);
     const {
       movies,
-      props: {
-        match: {
-          path,
-        },
-      },
     } = this.props;
 
     let moviesToDisplay = movies;
@@ -66,15 +61,7 @@ class Browse extends Component {
                 <ul>
                   {
                     moviesToDisplay.map((movie) => (
-                      <li key={movie.id}>
-                        <Link to={`${path}/${movie.id}`}>
-                          { movie.title }
-                          {' '}
-                          (
-                          { movie.year }
-                          )
-                        </Link>
-                      </li>
+                      singleMovieBox(movie)
                     ))
                   }
                 </ul>
