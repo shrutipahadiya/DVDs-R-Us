@@ -26,7 +26,7 @@ module.exports = {
         some: ['nesting', 'id'],
       },
     }],
-    'linebreak-style': 0,
-    },
-
+    "linebreak-style": 0
+  },
+  
 };
