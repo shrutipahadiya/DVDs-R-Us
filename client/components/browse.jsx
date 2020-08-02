@@ -17,14 +17,16 @@ class Browse extends Component {
   }
 
   async componentDidMount() {
-    await this.props.getMovies();
+    // eslint-disable-next-line no-shadow
+    const { getMovies, movies } = this.props;
+    await getMovies();
     this.setState({
-      genres: generateGenres(this.props.movies),
+      genres: generateGenres(movies),
     });
   }
 
   render() {
-    console.log('browser props: ', this.props);
+    // console.log('browser props: ', this.props);
     const {
       movies,
     } = this.props;
@@ -34,8 +36,6 @@ class Browse extends Component {
     const {
       filter, sort, genres, sortMethods,
     } = this.state;
-    // let { movies } = this.props;
-    // const { path } = this.props.props.match;
     moviesToDisplay = movieFilter(moviesToDisplay, filter, sort);
     return (
       <div>
