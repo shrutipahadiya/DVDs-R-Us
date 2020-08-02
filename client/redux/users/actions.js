@@ -3,10 +3,10 @@ import USER_TYPES from './types';
 const axios = require('axios');
 
 export const login = (username, password, history) => (dispatch) => {
-  console.log('login function!!!');
+  // console.log('login function!!!');
   axios.post('/api/users/login', { username, password })
     .then(async (res) => {
-      console.log(res.status);
+      // console.log('response', res.status);
       if (res.status === 200) {
         dispatch({
           type: USER_TYPES.LOGIN,
@@ -14,6 +14,7 @@ export const login = (username, password, history) => (dispatch) => {
         });
         history.goBack();
       } else {
+        // eslint-disable-next-line no-alert
         alert('Your username or password was wrong :(');
       }
     })
@@ -25,7 +26,7 @@ export const login = (username, password, history) => (dispatch) => {
 export const loginCheck = () => (dispatch) => {
   axios.get('/api/users/logincheck')
     .then((res) => {
-      console.log(res.data);
+      // console.log(res.data);
       dispatch({
         type: USER_TYPES.LOGIN_CHECK,
         userData: res.data,

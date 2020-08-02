@@ -26,7 +26,7 @@ class Browse extends Component {
   }
 
   render() {
-    console.log('browser props: ', this.props);
+    // console.log('browser props: ', this.props);
     const {
       movies,
       props: {

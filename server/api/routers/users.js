@@ -8,6 +8,8 @@ const { User, Session } = require('../../db/Models/index');
 userRouter.post('/login', async (req, res) => {
   const { username, password } = req.body;
   const user = await User.findOne({ where: { username, password } });
+
+  console.log('found user', user.username, user.id);
   if (!user) {
     res.sendStatus(401);
   } else {

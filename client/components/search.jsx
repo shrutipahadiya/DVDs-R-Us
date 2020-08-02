@@ -12,16 +12,16 @@ class Search extends Component {
   }
 
   async componentDidMount() {
-    console.log('component mounted ');
+    // console.log('component mounted ');
     // const { getMovies } = this.props;
     // await getMovies();
     // await getMovies();
     await this.props.getMovies();
-    console.log('getMovies called here --', this.props);
+    // console.log('getMovies called here --', this.props);
   }
 
   render() {
-    console.log('props in search ', this.props);
+    // console.log('props in search ', this.props);
     return (
       <form>
         <div>

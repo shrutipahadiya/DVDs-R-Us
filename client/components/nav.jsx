@@ -1,3 +1,4 @@
+/* eslint react/prop-types: 0 */
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
@@ -53,7 +54,8 @@ class Nav extends Component {
 
 Nav.propTypes = {
   loggedIn: propTypes.bool.isRequired,
-  loggedInUser: propTypes.shape({ username: propTypes.string.isRequired }).isRequired,
+  // loggedInUser: propTypes.shape({ username: propTypes.string.isRequired }).isRequired,
+  loggedInUser: propTypes.shape({}).isRequired,
   loginCheck: propTypes.func.isRequired,
   logOut: propTypes.func.isRequired,
 };
