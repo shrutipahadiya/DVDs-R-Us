@@ -18,8 +18,9 @@ class Browse extends Component {
 
   async componentDidMount() {
     // eslint-disable-next-line no-shadow
-    const { getMovies, movies } = this.props;
+    const { getMovies } = this.props;
     await getMovies();
+    const { movies } = this.props;
     this.setState({
       genres: generateGenres(movies),
     });
