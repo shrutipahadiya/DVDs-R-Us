@@ -12,7 +12,6 @@ class MoviePage extends Component {
   }
 
   componentDidMount() {
-    // { getMovies } = this.props;
     this.props.getMovies();
   }
 
@@ -123,7 +122,7 @@ class MoviePage extends Component {
 
 MoviePage.propTypes = {
   getMovies: propTypes.func.isRequired,
-  movies: propTypes.isRequired,
+  movies: propTypes.arrayOf(propTypes.object).isRequired,
   props: propTypes.shape({
     history: propTypes.isRequired,
     match: propTypes.shape({
