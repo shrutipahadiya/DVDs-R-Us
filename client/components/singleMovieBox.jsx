@@ -40,10 +40,11 @@ class SingleMovieBox extends Component {
           </div>
           <div className="select">
             <input
+              type="number"
               min="0"
               max="20"
               value={this.state.quantity}
-              onChange={(ev) => this.setState({ quantity: ev.tagrget.value })}
+              onChange={(ev) => this.setState({ quantity: ev.target.value })}
             />
           </div>
           <button type="submit" style={{ margin: '10px' }} className="button">Add To Cart</button>
