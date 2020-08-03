@@ -3,6 +3,7 @@ import USER_TYPES from './types';
 const initialState = {
   loggedInUser: {},
   loggedIn: false,
+  users: [],
 };
 
 const userReducer = (state = initialState, action) => {
@@ -24,6 +25,11 @@ const userReducer = (state = initialState, action) => {
         ...state,
         loggedIn: false,
         loggedInUser: {},
+      };
+    case USER_TYPES.GET_USERS:
+      return {
+        ...state,
+        users: action.users,
       };
     default:
       return state;

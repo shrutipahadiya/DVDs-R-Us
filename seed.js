@@ -1,6 +1,6 @@
 const imdb = require('imdb-api');
 const chalk = require('chalk');
-const { Movie, User, Session } = require('./server/db/Models/index');
+const { Movie, User } = require('./server/db/Models/index');
 const { db } = require('./server/db/db');
 const movieObject = require('./movieObject');
 require('dotenv').config();
@@ -47,6 +47,27 @@ const seed = async () => {
 
   User.create({
     username: 'admin',
+    password: 'password123',
+    isAdmin: true,
+  });
+
+  User.create({
+    username: 'Nick',
+    password: 'password123',
+  });
+
+  User.create({
+    username: 'Chad',
+    password: 'password123',
+  });
+
+  User.create({
+    username: 'Shruti',
+    password: 'password123',
+  });
+
+  User.create({
+    username: 'Kwon',
     password: 'password123',
   });
 

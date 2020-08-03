@@ -70,3 +70,10 @@ select {
     text-decoration: underline;
     cursor: pointer;
 }
+
+.adminBox {
+    height: 500px;
+    border: 1px solid black;
+    border-radius: 5px;
+    overflow-y: scroll;
+}

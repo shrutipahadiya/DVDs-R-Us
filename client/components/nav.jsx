@@ -14,18 +14,27 @@ class Nav extends Component {
   }
 
   render() {
-    // eslint-disable-next-line no-shadow
-    const { loggedIn, loggedInUser, logOut } = this.props;
+    const {
+      // eslint-disable-next-line no-shadow
+      loggedIn, loggedInUser, logOut, props: { history },
+    } = this.props;
     return (
       <div>
         <nav>
           <div style={{ display: 'flex', flexDirection: 'column' }}>
-            <div>
-              <p className="title is-5">{ loggedIn ? `Hello ${loggedInUser.username}!` : 'Hello Guest! Please login!'}</p>
+            <div style={{ display: 'flex', justifyContent: 'flex-end' }}>
+              <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'flex-end' }}>
+                <p className="is-size-6" style={{ marginBottom: '5px' }}>{ loggedIn ? `Hello ${loggedInUser.username}!` : 'Hello Guest! Please login or signup!'}</p>
+              </div>
               {
                 loggedIn
-                  ? <button onClick={logOut} className="button" type="button">Log Out</button>
-                  : <Link className="button" to="/login">Login</Link>
+                  ? <button onClick={() => logOut(history)} className="button" type="button" style={{ margin: '5px 10px' }}>Log Out</button>
+                  : <Link className="button" to="/login" style={{ margin: '5px 10px' }}>Login</Link>
+              }
+              {
+                !loggedIn
+                  ? <Link className="button" to="/signup" style={{ margin: '5px 10px' }}>Sign-Up</Link>
+                  : null
               }
             </div>
             <div className="navDiv">
@@ -44,6 +53,15 @@ class Nav extends Component {
               <Link to="/cart" style={{ color: 'white' }}>
                 Cart
               </Link>
+              {
+                loggedInUser.isAdmin
+                  ? (
+                    <Link style={{ color: 'white' }} to={`/admin/${loggedInUser.id}`}>
+                      Admin
+                    </Link>
+                  )
+                  : null
+              }
             </div>
           </div>
         </nav>
