@@ -12,6 +12,8 @@ import Browse from './components/browse';
 import MoviePage from './components/moviePage';
 // eslint-disable-next-line import/no-named-as-default-member
 import Login from './components/login';
+import Admin from './components/admin';
+import LogOut from './components/logoutPage';
 
 // export default class App extends Component {
 const App = () => (
@@ -21,14 +23,16 @@ const App = () => (
   <div className="container">
     <HashRouter>
       <div>
-        <Route component={Nav} />
+        <Route render={(props) => <Nav props={props} />} />
       </div>
       <Switch>
         <Route exact path="/login" render={(props) => <Login props={props} />} />
         <Route exact path="/about" component={About} />
         <Route exact path="/search" render={() => <Search />} />
         <Route exact path="/browse" render={(props) => <Browse props={props} />} />
+        <Route exact path="/logout" render={(props) => <LogOut props={props} />} />
         <Route path="/browse/:id?" render={(props) => <MoviePage props={props} />} />
+        <Route path="/admin/:id?" render={(props) => <Admin props={props} />} />
         <Redirect to="/" />
       </Switch>
     </HashRouter>

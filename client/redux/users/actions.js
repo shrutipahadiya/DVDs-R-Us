@@ -34,11 +34,22 @@ export const loginCheck = () => (dispatch) => {
     });
 };
 
-export const logOut = () => (dispatch) => {
+export const logOut = (history) => (dispatch) => {
   axios.delete('/api/users/logout')
     .then(() => {
       dispatch({
         type: USER_TYPES.LOG_OUT,
+      });
+      history.push('/logout');
+    });
+};
+
+export const getUsers = () => (dispatch) => {
+  axios.get('/api/users')
+    .then((res) => {
+      dispatch({
+        type: USER_TYPES.GET_USERS,
+        users: res.data,
       });
     });
 };
