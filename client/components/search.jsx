@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import propTypes from 'prop-types';
 import { getMovies } from '../redux/movies/actions';
 import { movieFilter } from '../utilities';
-import singleMovieBox from './singleMovieBox';
+import SingleMovieBox from './singleMovieBox';
 
 class Search extends Component {
   constructor() {
@@ -116,12 +116,12 @@ class Search extends Component {
 
         <ul>
           {
-          searchedMovies
-            ? searchedMovies.map((movie) => (
-              singleMovieBox(movie)
-            ))
-            : null
-             }
+            searchedMovies
+              ? searchedMovies.map((movie) => (
+                <SingleMovieBox movie={movie} />
+              ))
+              : null
+          }
         </ul>
       </div>
 

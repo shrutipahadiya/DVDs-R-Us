@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import propTypes from 'prop-types';
 import { getMovies } from '../redux/movies/actions';
 import { generateGenres, movieFilter } from '../utilities';
-import singleMovieBox from './singleMovieBox';
+import SingleMovieBox from './singleMovieBox';
 
 class Browse extends Component {
   constructor() {
@@ -61,7 +61,7 @@ class Browse extends Component {
                 <ul>
                   {
                     moviesToDisplay.map((movie) => (
-                      singleMovieBox(movie)
+                      <SingleMovieBox movie={movie} />
                     ))
                   }
                 </ul>
