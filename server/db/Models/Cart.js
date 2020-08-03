@@ -1,7 +1,7 @@
 const Sequelize = require('sequelize');
 
 const {
-  UUID, UUIDV4,STRING
+  UUID, UUIDV4, STRING,
 } = Sequelize;
 const { db } = require('../db');
 

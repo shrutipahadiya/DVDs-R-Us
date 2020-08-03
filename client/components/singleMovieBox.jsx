@@ -1,3 +1,4 @@
+/* eslint-disable no-plusplus */
 /* eslint-disable react/no-unused-state */
 /* eslint-disable react/prop-types */
 /* eslint-disable react/state-in-constructor */
@@ -5,7 +6,7 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 
 const maxQuant = [];
-for (let i = 0; i < 21; i++) {
+for (let i = 0; i < 21; i += 1) {
   maxQuant.push(i);
 }
 
