@@ -1,3 +1,4 @@
+/* eslint-disable react/forbid-prop-types */
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import propTypes from 'prop-types';
@@ -26,9 +27,10 @@ class Browse extends Component {
   }
 
   render() {
-    // console.log('browser props: ', this.props);
+    console.log('browser props: ', this.props);
     const {
       movies,
+      props,
     } = this.props;
 
     let moviesToDisplay = movies;
@@ -61,7 +63,7 @@ class Browse extends Component {
                 <ul>
                   {
                     moviesToDisplay.map((movie) => (
-                      <SingleMovieBox movie={movie} />
+                      <SingleMovieBox movie={movie} history={props.history} />
                     ))
                   }
                 </ul>
@@ -77,11 +79,13 @@ class Browse extends Component {
 Browse.propTypes = {
   getMovies: propTypes.func.isRequired,
   movies: propTypes.arrayOf(propTypes.object).isRequired,
+  history: propTypes.object.isRequired,
   // props: propTypes.object.isRequired,
   props: propTypes.shape({
     match: propTypes.shape({
       path: propTypes.string.isRequired,
     }).isRequired,
+    history: propTypes.isRequired,
   }).isRequired,
 };
 

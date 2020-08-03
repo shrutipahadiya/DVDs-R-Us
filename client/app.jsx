@@ -26,9 +26,10 @@ const App = () => (
       <Switch>
         <Route exact path="/login" render={(props) => <Login props={props} />} />
         <Route exact path="/about" component={About} />
-        <Route exact path="/search" render={() => <Search />} />
+        <Route exact path="/search" render={(props) => <Search props={props} />} />
         <Route exact path="/browse" render={(props) => <Browse props={props} />} />
         <Route path="/browse/:id?" render={(props) => <MoviePage props={props} />} />
+        <Route path="/search/:id?" render={(props) => <MoviePage props={props} />} />
         <Redirect to="/" />
       </Switch>
     </HashRouter>
