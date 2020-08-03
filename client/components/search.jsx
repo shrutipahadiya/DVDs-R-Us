@@ -1,9 +1,10 @@
+/* eslint-disable react/prop-types */
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import propTypes from 'prop-types';
 import { getMovies } from '../redux/movies/actions';
 import { movieFilter } from '../utilities';
-import singleMovieBox from './singleMovieBox';
+import SingleMovieBox from './singleMovieBox';
 
 class Search extends Component {
   constructor() {
@@ -43,6 +44,7 @@ class Search extends Component {
 
   render() {
     const { searchTerm, searchCriteria, searchedMovies } = this.state;
+    const { props } = this.props;
     return (
       <div>
         <form>
@@ -116,12 +118,12 @@ class Search extends Component {
 
         <ul>
           {
-          searchedMovies
-            ? searchedMovies.map((movie) => (
-              singleMovieBox(movie)
-            ))
-            : null
-             }
+            searchedMovies
+              ? searchedMovies.map((movie) => (
+                <SingleMovieBox movie={movie} history={props.history} />
+              ))
+              : null
+          }
         </ul>
       </div>
 

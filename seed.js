@@ -47,8 +47,8 @@ const seed = async () => {
 
   User.create({
     username: 'admin',
-    password: 'password123'
-  })
+    password: 'password123',
+  });
 
   console.log(chalk.greenBright('Data is seeded'));
 };
