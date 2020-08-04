@@ -55,4 +55,20 @@ userRouter.delete('/logout', async (req, res) => {
   res.sendStatus(204);
 });
 
+userRouter.post('/signup', async (req, res) => {
+  const { username, password } = req.body;
+
+  const existingUser = await User.findOne({ where: { username } });
+  if (existingUser) {
+    res.sendStatus(204);
+  } else {
+    const user = await User.create({ username, password });
+    if (!user) {
+      res.sendStatus(400);
+    } else {
+      await res.status(200).send(user);
+    }
+  }
+});
+
 module.exports = userRouter;

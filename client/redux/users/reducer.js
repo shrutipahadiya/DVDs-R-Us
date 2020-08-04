@@ -4,6 +4,9 @@ const initialState = {
   loggedInUser: {},
   loggedIn: false,
   users: [],
+  userCreated: false,
+  userExists: false,
+  firstTimeSignup: false,
 };
 
 const userReducer = (state = initialState, action) => {
@@ -30,6 +33,29 @@ const userReducer = (state = initialState, action) => {
       return {
         ...state,
         users: action.users,
+      };
+    case USER_TYPES.SIGNUP:
+      if (action.newUser !== '' && action.status === 200) { // ok
+        return {
+          ...state,
+          users: action.newUser,
+          userCreated: true,
+          firstTimeSignup: true,
+        };
+      }
+      if (action.status === 204) { // Username Exists
+        return {
+          ...state,
+          userCreated: false,
+          userExists: true,
+          firstTimeSignup: true,
+        };
+      } // Technical Issue
+      return {
+        ...state,
+        userCreated: false,
+        userExists: false,
+        firstTimeSignup: true,
       };
     default:
       return state;
