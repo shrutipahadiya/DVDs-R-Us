@@ -53,3 +53,17 @@ export const getUsers = () => (dispatch) => {
       });
     });
 };
+
+export const signup = (username, password) => (dispatch) => {
+  axios.post('/api/users/signup', { username, password })
+    .then(async (res) => {
+      dispatch({
+        type: USER_TYPES.SIGNUP,
+        newUser: res.data,
+        status: res.status,
+      });
+    })
+    .catch((e) => {
+      throw e;
+    });
+};
