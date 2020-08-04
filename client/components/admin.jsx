@@ -2,7 +2,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import propTypes from 'prop-types';
-import { getMovies } from '../redux/movies/actions';
+import { getMovies, searchImdb, orderStock } from '../redux/movies/actions';
 import { getUsers } from '../redux/users/actions';
 
 // eslint-disable-next-line react/prefer-stateless-function
@@ -18,45 +18,117 @@ class Admin extends Component {
     getUsers();
   }
 
+  handleSubmit = async (e) => {
+    e.preventDefault();
+    // eslint-disable-next-line no-shadow
+    const { searchImdb } = this.props;
+    const { searchInput } = this.state;
+    await searchImdb(searchInput);
+    this.setState({
+      searchInput: '',
+    });
+  }
+
+  handleOrder = async (e) => {
+    // eslint-disable-next-line no-shadow
+    const { orderStock } = this.props;
+    await orderStock(e.target.value);
+    // eslint-disable-next-line no-alert
+    alert('Movie is now added to inventory!');
+  }
+
   render() {
     const { searchInput } = this.state;
-    const { movies, users } = this.props;
+    const { handleSubmit, handleOrder } = this;
+    const { movies, users, imdbSearchResults } = this.props;
     return (
       <div className="box">
         <div className="columns is-multiline">
           <div className="column is-half">
-            <p className="title is-4">Movies In Stock</p>
-            <div className="adminBox">
+            <label htmlFor="movieBox1" className="label">Movies In Stock</label>
+            <div id="movieBox1" className="adminBox">
               {
               movies
-                ? movies.map((movie) => <p key={movie.id}>{ movie.title }</p>)
+                ? movies.map((movie) => (
+                  <div key={movie.id} style={{ padding: '30px' }} className="box">
+                    <div className="columns">
+                      <div className="column is-one-quarter">
+                        <div className="image is-48x48">
+                          <img src={movie.poster} alt="movie poster" />
+                        </div>
+                      </div>
+                      <div className="column is-one-quarter">
+                        <p className="title is-6">
+                          { movie.title }
+                          {' '}
+                          (
+                          { movie.year }
+                          )
+                        </p>
+                      </div>
+                      <div className="column is-one-quarter">
+                        <button type="button" className="button">Remove Movie</button>
+                      </div>
+                    </div>
+                  </div>
+                ))
                 : null
             }
             </div>
           </div>
           <div className="column is-half">
-            <div style={{ display: 'flex' }}>
-              <p className="title is-4">Add New Movies</p>
-              <form>
-                <div style={{ display: 'flex' }}>
-                  <input
-                    style={{ width: '100vw' }}
-                    onChange={(e) => this.setState({ searchInput: e.target.value })}
-                    type="text"
-                    className="input"
-                    value={searchInput}
-                  />
-                  <button
-                    type="submit"
-                    className="button"
-                  >
-                    Search
-                  </button>
+            <div>
+              <form onSubmit={handleSubmit}>
+                <div className="field">
+                  <div className="control">
+                    <label className="label" htmlFor="imdbSearch">Add New Movies</label>
+                    <input
+                      id="imdbSearch"
+                      onChange={(e) => this.setState({ searchInput: e.target.value })}
+                      type="text"
+                      className="input"
+                      style={{ width: '100%' }}
+                      value={searchInput}
+                    />
+                  </div>
                 </div>
+                <button
+                  style={{ width: '100%', marginBottom: '10px' }}
+                  type="submit"
+                  className="button"
+                >
+                  Search
+                </button>
               </form>
             </div>
             <div className="adminBox">
-              <p>Search results will go here</p>
+              {
+                imdbSearchResults
+                  ? imdbSearchResults.map((movie) => (
+                    <div className="box" style={{ padding: '30px' }} key={movie.imdbid}>
+                      <div className="columns">
+                        <div className="column is-one-quarter">
+                          <div className="image is-48x48">
+                            <img src={movie.poster} alt="movie poster" />
+                          </div>
+                        </div>
+                        <div className="column is-one-quarter">
+                          <p className="title is-6">
+                            {movie.title}
+                            {' '}
+                            (
+                            {movie.year}
+                            )
+                          </p>
+                        </div>
+                        <div className="column is-one-quarter">
+                          <button onClick={handleOrder} className="button" type="button" value={movie.imdbid}>Order Stock</button>
+                        </div>
+                      </div>
+                    </div>
+                  ))
+                  : null
+              }
             </div>
           </div>
           <div className="column is-half">
@@ -77,6 +149,9 @@ class Admin extends Component {
 
 Admin.propTypes = {
   getMovies: propTypes.func.isRequired,
+  orderStock: propTypes.func.isRequired,
+  searchImdb: propTypes.func.isRequired,
+  imdbSearchResults: propTypes.arrayOf(propTypes.object).isRequired,
   getUsers: propTypes.func.isRequired,
   movies: propTypes.arrayOf(propTypes.object).isRequired,
   users: propTypes.arrayOf(propTypes.object).isRequired,
@@ -85,8 +160,11 @@ Admin.propTypes = {
 const mapStateToProps = (state) => ({
   movies: state.movieReducer.movies,
   users: state.userReducer.users,
+  imdbSearchResults: state.movieReducer.imdbSearchResults,
 });
 
-const mapDispatchToProps = { getMovies, getUsers };
+const mapDispatchToProps = {
+  getMovies, getUsers, searchImdb, orderStock,
+};
 
 export default connect(mapStateToProps, mapDispatchToProps)(Admin);

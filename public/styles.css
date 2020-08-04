@@ -11,37 +11,37 @@ body {
     height: 50px;
 }
 
-input,
+/* input,
 select,
 button {
     height: 1.75rem;
     font-size: 1rem;
-}
+} */
 
-form {
+/* form {
     padding: 1rem;
     width: 40%;
     border-radius: 5px;
     display: flex;
     flex-direction: column;
     margin: auto;
-}
+} */
 
-form>div {
+/* form>div {
     display: flex;
     margin-bottom: 1rem;
-}
+} */
 
-form>div>label {
+/* form>div>label {
     flex: 1;
     display: flex;
     font-weight: bold;
-}
+} */
 
-form>div>input,
+/* form>div>input,
 select {
     flex: 3;
-}
+} */
 
 
 .outerBox {
@@ -73,7 +73,7 @@ select {
 
 .adminBox {
     height: 500px;
-    border: 1px solid black;
+    /* border: 1px solid black; */
     border-radius: 5px;
     overflow-y: scroll;
 }

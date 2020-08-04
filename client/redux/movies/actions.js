@@ -12,6 +12,27 @@ export const getMovies = () => async (dispatch) => {
     });
 };
 
+export const searchImdb = (searchInput) => async (dispatch) => {
+  await axios.post('/api/movies/imdbsearch', { searchInput })
+    .then((res) => {
+      console.log(res.data);
+      dispatch({
+        type: MOVIE_TYPES.SEARCH_IMDB,
+        results: res.data,
+      });
+    });
+};
+
+export const orderStock = (id) => async (dispatch) => {
+  await axios.post('/api/movies/order', { id })
+    .then((res) => {
+      dispatch({
+        type: MOVIE_TYPES.ORDER_STOCK,
+        movie: res.data,
+      });
+    });
+};
+
 export const addMovie = () => async () => {
 //  action created to prevent linting error caused by not exporting default
 };

@@ -48,20 +48,22 @@ class Search extends Component {
     return (
       <div>
         <form>
-          <div>
-            <label htmlFor="searchTerm"> Search Term:</label>
+          <div className="field">
+            <label className="label" htmlFor="searchTerm"> Search Term:</label>
             <input
               type="text"
               id="searchTerm"
+              className="input"
               placeholder="Enter Your Search Term Here"
               value={searchTerm}
               name="searchTerm"
               onChange={(ev) => this.handleSearchTermChange(ev)}
             />
           </div>
-          <div>
-            <label htmlFor="searchCriteria">Search Criteria:</label>
+          <div className="field">
+            <label className="label" htmlFor="searchCriteria">Search Criteria:</label>
             <select
+              className="select"
               value={searchCriteria}
               id="searchCriteria"
               name="searchCriteria"
@@ -111,7 +113,7 @@ class Search extends Component {
               </option>
             </select>
           </div>
-          <button type="button" onClick={(ev) => this.handleSearch(ev)}>
+          <button className="button" type="button" onClick={(ev) => this.handleSearch(ev)}>
             Search
           </button>
         </form>
@@ -120,7 +122,7 @@ class Search extends Component {
           {
             searchedMovies
               ? searchedMovies.map((movie) => (
-                <SingleMovieBox movie={movie} history={props.history} />
+                <SingleMovieBox key={movie.id} movie={movie} history={props.history} />
               ))
               : null
           }

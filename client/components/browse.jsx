@@ -28,10 +28,11 @@ class Browse extends Component {
   }
 
   render() {
-    console.log('browser props: ', this.props);
     const {
       movies,
-      props,
+      props: {
+        history,
+      },
     } = this.props;
 
     let moviesToDisplay = movies;
@@ -47,14 +48,14 @@ class Browse extends Component {
             ? (
               <div>
                 <div>
-                  <select onChange={(e) => this.setState({ sort: e.target.value })}>
+                  <select className="select" onChange={(e) => this.setState({ sort: e.target.value })}>
                     {
                       sortMethods.map((method) => (
                         <option key={method} value={method}>{ method }</option>
                       ))
                     }
                   </select>
-                  <select onChange={(e) => this.setState({ filter: e.target.value })}>
+                  <select className="select" onChange={(e) => this.setState({ filter: e.target.value })}>
                     <option value="All">All</option>
                     {
                       genres.map((genre) => <option key={genre} value={genre}>{ genre }</option>)
@@ -64,7 +65,7 @@ class Browse extends Component {
                 <ul>
                   {
                     moviesToDisplay.map((movie) => (
-                      <SingleMovieBox movie={movie} history={props.history} />
+                      <SingleMovieBox key={movie.id} movie={movie} history={history} />
                     ))
                   }
                 </ul>
@@ -80,7 +81,6 @@ class Browse extends Component {
 Browse.propTypes = {
   getMovies: propTypes.func.isRequired,
   movies: propTypes.arrayOf(propTypes.object).isRequired,
-  history: propTypes.object.isRequired,
   // props: propTypes.object.isRequired,
   props: propTypes.shape({
     match: propTypes.shape({
