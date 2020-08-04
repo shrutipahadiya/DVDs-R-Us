@@ -6,8 +6,12 @@ const { User, Session } = require('../../db/Models/index');
 // // //  API routes will be in the form of: "userRouter.get()"
 
 userRouter.get('/', async (req, res) => {
-  const users = await User.findAll();
-  res.send(users);
+  if (req.user && req.user.isAdmin) {
+    const users = await User.findAll();
+    res.send(users);
+  } else {
+    res.sendStatus(404);
+  }
 });
 
 userRouter.post('/login', async (req, res) => {
