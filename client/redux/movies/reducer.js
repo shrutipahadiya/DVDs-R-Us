@@ -23,6 +23,12 @@ const movieReducer = (state = initialState, action) => {
         movies: [...state.movies, action.movie],
         imdbSearchResults: [],
       };
+    case MOVIE_TYPES.REMOVE_MOVIE:
+      return {
+        ...state,
+        // removedMovieResults:  action.updatedmovies,
+        movies: action.updatedmovies,
+      };
     default:
       return state;
   }

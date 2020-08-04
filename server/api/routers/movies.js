@@ -53,4 +53,9 @@ movieRouter.post('/order', async (req, res) => {
   }
 });
 
+movieRouter.delete('/remove/:id', async (req, res) => {
+  await Movie.destroy({ where: { id: req.params.id } });
+  res.sendStatus(200);
+});
+
 module.exports = movieRouter;
