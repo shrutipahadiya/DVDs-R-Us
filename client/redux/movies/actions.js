@@ -33,6 +33,17 @@ export const orderStock = (id) => async (dispatch) => {
     });
 };
 
+export const removeMovie = (id) => async (dispatch) => {
+  await axios.delete(`/api/movies/remove/${id}`);
+  await axios.get('/api/movies')
+    .then((res) => {
+      dispatch({
+        type: MOVIE_TYPES.REMOVE_MOVIE,
+        updatedmovies: res.data,
+      });
+    });
+};
+
 export const addMovie = () => async () => {
 //  action created to prevent linting error caused by not exporting default
 };

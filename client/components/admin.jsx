@@ -2,7 +2,9 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import propTypes from 'prop-types';
-import { getMovies, searchImdb, orderStock } from '../redux/movies/actions';
+import {
+  getMovies, searchImdb, orderStock, removeMovie,
+} from '../redux/movies/actions';
 import { getUsers } from '../redux/users/actions';
 
 // eslint-disable-next-line react/prefer-stateless-function
@@ -37,9 +39,17 @@ class Admin extends Component {
     alert('Movie is now added to inventory!');
   }
 
+  handleRemoveMovie = async (e) => {
+    // eslint-disable-next-line no-shadow
+    const { removeMovie } = this.props;
+    await removeMovie(e.target.value);
+    // eslint-disable-next-line no-alert
+    alert('Movie is now removed from inventory!');
+  };
+
   render() {
     const { searchInput } = this.state;
-    const { handleSubmit, handleOrder } = this;
+    const { handleSubmit, handleOrder, handleRemoveMovie } = this;
     const { movies, users, imdbSearchResults } = this.props;
     return (
       <div className="box">
@@ -67,7 +77,7 @@ class Admin extends Component {
                         </p>
                       </div>
                       <div className="column is-one-quarter">
-                        <button type="button" className="button">Remove Movie</button>
+                        <button type="button" value={movie.id} onClick={handleRemoveMovie} className="button">Remove Movie</button>
                       </div>
                     </div>
                   </div>
@@ -151,6 +161,7 @@ Admin.propTypes = {
   getMovies: propTypes.func.isRequired,
   orderStock: propTypes.func.isRequired,
   searchImdb: propTypes.func.isRequired,
+  removeMovie: propTypes.func.isRequired,
   imdbSearchResults: propTypes.arrayOf(propTypes.object).isRequired,
   getUsers: propTypes.func.isRequired,
   movies: propTypes.arrayOf(propTypes.object).isRequired,
@@ -164,7 +175,7 @@ const mapStateToProps = (state) => ({
 });
 
 const mapDispatchToProps = {
-  getMovies, getUsers, searchImdb, orderStock,
+  getMovies, getUsers, searchImdb, orderStock, removeMovie,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Admin);
