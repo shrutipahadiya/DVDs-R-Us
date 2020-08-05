@@ -5,7 +5,6 @@ const { Cart } = require('./Cart');
 const { Review } = require('./Review');
 const { Order } = require('./Order');
 
-
 Session.belongsTo(User);
 User.hasMany(Session);
 Cart.belongsTo(Session);
