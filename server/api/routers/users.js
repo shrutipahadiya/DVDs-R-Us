@@ -1,6 +1,6 @@
 const userRouter = require('express').Router();
 const bcrypt = require('bcrypt');
-const { User, Session } = require('../../db/Models/index');
+const { User, Session, Review } = require('../../db/Models/index');
 
 // // //  this will need to bring in the models
 // // //  API routes will be in the form of: "userRouter.get()"
@@ -73,6 +73,29 @@ userRouter.post('/signup', async (req, res) => {
       await res.status(200).send(user);
     }
   }
+});
+
+userRouter.post('/review', async (req, res) => {
+  const { review, rating, movieId } = req.body;
+  const { user } = req;
+  const newReview = await Review.create({
+    review,
+    rating,
+    movieId,
+    username: user.username,
+    UserId: user.id,
+  });
+  if (newReview) {
+    res.send(newReview);
+  } else {
+    res.sendStatus(400);
+  }
+});
+
+userRouter.get('/reviews/:id', async (req, res) => {
+  const { id } = req.params;
+  const reviews = await Review.findAll({ where: { movieId: id } });
+  res.send(reviews);
 });
 
 module.exports = userRouter;

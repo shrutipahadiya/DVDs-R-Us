@@ -27,24 +27,29 @@ class Signup extends Component {
     const { userCreated, userExists, firstTimeSignup } = this.props;
     return (
       <div className="box">
-        <form onSubmit={onSubmit}>
-          <label htmlFor="username">Username:</label>
-          <input
-            id="username"
-            value={username}
-            onChange={(e) => this.setState({ username: e.target.value })}
-            type="text"
-          />
-          <label htmlFor="password">Password:</label>
-          <input
-            id="password"
-            value={password}
-            onChange={(e) => this.setState({ password: e.target.value })}
-            type="password"
-          />
-          &nbsp;
-          <button type="submit">Signup</button>
-        </form>
+        <div className="columns">
+          <div className="column" />
+          <form className="column" onSubmit={onSubmit}>
+            <label htmlFor="username">Username:</label>
+            <input
+              className="input"
+              id="username"
+              value={username}
+              onChange={(e) => this.setState({ username: e.target.value })}
+              type="text"
+            />
+            <label htmlFor="password">Password:</label>
+            <input
+              className="input"
+              id="password"
+              value={password}
+              onChange={(e) => this.setState({ password: e.target.value })}
+              type="password"
+            />
+            <button className="button" type="submit">Signup</button>
+          </form>
+          <div className="column" />
+        </div>
         <div>
           {firstTimeSignup ? (
             userCreated === true ? (

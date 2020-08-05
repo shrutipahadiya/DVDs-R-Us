@@ -98,3 +98,10 @@ export const movieFilter = (movies, filter, sort, searchTerm) => {
   }
   return filteredMovies;
 };
+
+export const adminInventoryFilter = (movies, search) => {
+  if (search.length > 0) {
+    return movies.filter((movie) => movie.title.toLowerCase().includes(search.toLowerCase()));
+  }
+  return movies;
+};
