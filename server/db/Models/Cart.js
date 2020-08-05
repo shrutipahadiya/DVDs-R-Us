@@ -1,7 +1,7 @@
 const Sequelize = require('sequelize');
 
 const {
-  UUID, UUIDV4, STRING,
+  UUID, UUIDV4, STRING, BOOLEAN,
 } = Sequelize;
 const { db } = require('../db');
 
@@ -20,6 +20,10 @@ const Cart = db.define('Cart', {
     set(val) {
       this.setDataValue('items', val.join(';'));
     },
+  },
+  isActive: {
+    type: BOOLEAN,
+    defaultValue: true,
   },
 });
 
