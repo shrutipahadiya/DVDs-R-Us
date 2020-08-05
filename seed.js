@@ -41,6 +41,7 @@ const seed = async () => {
           runtime: data.runtime,
           writer: data.writer.split(', '),
           year: data.year,
+          price: 0.99,
         });
       });
   });

@@ -1,7 +1,7 @@
 const Sequelize = require('sequelize');
 
 const {
-  STRING, TEXT, ARRAY, DATEONLY, INTEGER, DECIMAL,
+  STRING, TEXT, ARRAY, DATEONLY, INTEGER, DECIMAL, FLOAT,
 } = Sequelize;
 const { db } = require('../db');
 
@@ -110,7 +110,13 @@ const Movie = db.define('movie', {
       notEmpty: true,
     },
   },
-
+  price: {
+    type: FLOAT,
+    allowNull: false,
+    validate: {
+      min: 0,
+    },
+  },
 });
 
 module.exports = { Movie };
