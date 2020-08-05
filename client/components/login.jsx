@@ -31,7 +31,6 @@ class Login extends Component {
         history,
       },
     } = this.props;
-    console.log('USERNAME', username, 'PASSWORD', password);
     await login(username, password, history);
   }
 
@@ -40,25 +39,31 @@ class Login extends Component {
     const { onSubmit } = this;
     return (
       <div className="box">
-        <form onSubmit={onSubmit}>
-          <label>
-            Username:
-            <input
-              value={username}
-              onChange={(e) => this.setState({ username: e.target.value })}
-              type="text"
-            />
-          </label>
-          <label>
-            Password:
-            <input
-              value={password}
-              onChange={(e) => this.setState({ password: e.target.value })}
-              type="password"
-            />
-          </label>
-          <button type="submit">Login</button>
-        </form>
+        <div className="columns">
+          <div className="column is-one-third" />
+          <form className="column is-one-third" onSubmit={onSubmit}>
+            <label>
+              Username:
+              <input
+                className="input"
+                value={username}
+                onChange={(e) => this.setState({ username: e.target.value })}
+                type="text"
+              />
+            </label>
+            <label>
+              Password:
+              <input
+                className="input"
+                value={password}
+                onChange={(e) => this.setState({ password: e.target.value })}
+                type="password"
+              />
+            </label>
+            <button className="button" type="submit">Login</button>
+          </form>
+          <div className="column is-one-third" />
+        </div>
       </div>
     );
   }

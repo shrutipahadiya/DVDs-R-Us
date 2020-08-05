@@ -1,23 +1,77 @@
+/* eslint-disable react/state-in-constructor */
+/* eslint-disable no-shadow */
+/* eslint-disable react/no-array-index-key */
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import propTypes from 'prop-types';
 import { getMovies } from '../redux/movies/actions';
+import { loginCheck, submitReview, getReviews } from '../redux/users/actions';
+import ReviewList from './reviewList';
 
 class MoviePage extends Component {
-  constructor() {
-    super();
-    this.state = {
-      quantity: 0,
-    };
+  state = {
+    quantity: 0,
+    userRating: 1,
+    userReview: '',
   }
 
   componentDidMount() {
+    const {
+      props: {
+        match: {
+          params: {
+            id,
+          },
+        },
+      },
+    } = this.props;
     this.props.getMovies();
+    this.props.loginCheck();
+    this.props.getReviews(id);
+  }
+
+  // eslint-disable-next-line no-unused-vars
+  async componentDidUpdate(prevProps, prevState) {
+    const {
+      getReviews,
+      props: {
+        match: {
+          params: {
+            id,
+          },
+        },
+      },
+    } = this.props;
+    if (prevProps.currentMovieReviews.length !== this.props.currentMovieReviews.length) {
+      await getReviews(id);
+    }
+  }
+
+  reviewSubmit = async (e) => {
+    e.preventDefault();
+    const {
+      submitReview,
+      props: {
+        match: {
+          params: {
+            id,
+          },
+        },
+      },
+    } = this.props;
+    const { userReview, userRating } = this.state;
+    this.setState({
+      userReview: '',
+      userRating: 1,
+    });
+    await submitReview(userReview, userRating, id);
   }
 
   render() {
     const {
       movies,
+      loggedIn,
+      currentMovieReviews,
       props: {
         history,
         match: {
@@ -29,14 +83,25 @@ class MoviePage extends Component {
     } = this.props;
 
     const movie = movies.find((selectedMovie) => selectedMovie.id === id);
-
-    // const { id } = this.props.props.match.params;
-    // const movie = this.props.movies.find((movie) => movie.id === id);
-    const { quantity } = this.state;
-    // const { history } = this.props.props;
+    const { quantity, userRating, userReview } = this.state;
+    const { reviewSubmit } = this;
     return (
       <div>
-        <p className="backLink" onClick={() => history.goBack()} onKeyDown={() => history.goBack()} role="presentation">Back</p>
+        <div
+          role="presentation"
+          className="backLink"
+          onClick={() => history.goBack()}
+          onKeyDown={() => history.goBack()}
+          style={{
+            display: 'flex',
+            justifyContent: 'flex-start',
+            alignItems: 'center',
+            margin: '5px',
+          }}
+        >
+          <li className="fa fa-backward" aria-hidden="true" />
+          <p>Back</p>
+        </div>
         {
           (movie)
             ? (
@@ -51,10 +116,11 @@ class MoviePage extends Component {
                   </p>
                   <p className="title is-4">
                     Rating
-                    {movie.rating}
+                    {' '}
+                    { movie.rating }
                   </p>
                 </div>
-                <div className="columns">
+                <div className="columns is-multiline">
                   <div className="column is-one-third">
                     <figure className="image is=4by5">
                       <img src={movie.poster} alt={`${movie.name} Poster`} />
@@ -103,15 +169,72 @@ class MoviePage extends Component {
                       {movie.runtime}
                     </p>
                     <div style={{ display: 'flex', justifyContent: 'flex-end' }}>
-
                       <div style={{ display: 'flex', flexDirection: 'column' }}>
                         <p className="subtitle is-5" style={{ marginTop: '20px' }}>
                           {`Price: $${parseFloat(movie.price).toFixed(2)}`}
                         </p>
-                        <input className="input" type="number" value={quantity} onChange={(e) => this.setState({ quantity: e.target.value })} />
+                        <input className="input" type="number" min="1" value={quantity} onChange={(e) => this.setState({ quantity: e.target.value })} />
                         <button style={{ margin: '10px' }} className="button" type="button">Add To Cart</button>
                         <button style={{ margin: '10px' }} className="button" type="button">Add to Wishlist</button>
                       </div>
+                    </div>
+                  </div>
+                  <div className="column is-half">
+                    {
+                      loggedIn
+                        ? (
+                          <div className="field" style={{ display: 'flex', flexDirection: 'column' }}>
+                            <div className="control">
+                              <p className="title is-5">Leave a review</p>
+                              <div style={{ display: 'flex' }}>
+                                <select
+                                  className="select"
+                                  value={userRating}
+                                  onChange={(e) => this.setState({
+                                    userRating: Number(e.target.value),
+                                  })}
+                                >
+                                  <option value={1}>1</option>
+                                  <option value={2}>2</option>
+                                  <option value={3}>3</option>
+                                  <option value={4}>4</option>
+                                  <option value={5}>5</option>
+                                </select>
+                                <p className="title is-6">
+                                  {userRating}
+                                  /5
+                                </p>
+                                <i className="fa fa-star" />
+                              </div>
+                            </div>
+                            <form onSubmit={reviewSubmit}>
+                              <div className="field">
+                                <div className="control">
+                                  <textarea onChange={(e) => this.setState({ userReview: e.target.value })} value={userReview} className="textarea" placeholder="What did you think of this movie?" />
+                                </div>
+                              </div>
+                              <div className="field">
+                                <div className="control">
+                                  <button disabled={!userReview} className="button" type="submit">Submit</button>
+                                </div>
+                              </div>
+                            </form>
+                          </div>
+                        )
+                        : (
+                          <div>
+                            <p className="title is-5">Sign up or login to leave a review</p>
+                          </div>
+                        )
+                    }
+                  </div>
+                  <div className="column is-half">
+                    <div className="adminBox">
+                      {
+                        currentMovieReviews.length
+                          ? <ReviewList reviews={currentMovieReviews} />
+                          : <p className="subtitle is-6">No reviews yet...</p>
+                      }
                     </div>
                   </div>
                 </div>
@@ -126,6 +249,11 @@ class MoviePage extends Component {
 
 MoviePage.propTypes = {
   getMovies: propTypes.func.isRequired,
+  loginCheck: propTypes.func.isRequired,
+  submitReview: propTypes.func.isRequired,
+  currentMovieReviews: propTypes.arrayOf(propTypes.object).isRequired,
+  getReviews: propTypes.func.isRequired,
+  loggedIn: propTypes.bool.isRequired,
   movies: propTypes.arrayOf(propTypes.object).isRequired,
   props: propTypes.shape({
     history: propTypes.isRequired,
@@ -140,8 +268,12 @@ MoviePage.propTypes = {
 
 const mapStateToProps = (state) => ({
   movies: state.movieReducer.movies,
+  loggedIn: state.userReducer.loggedIn,
+  currentMovieReviews: state.userReducer.currentMovieReviews,
 });
 
-const mapDispatchToProps = { getMovies };
+const mapDispatchToProps = {
+  getMovies, loginCheck, submitReview, getReviews,
+};
 
 export default connect(mapStateToProps, mapDispatchToProps)(MoviePage);

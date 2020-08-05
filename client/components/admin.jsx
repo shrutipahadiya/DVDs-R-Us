@@ -6,11 +6,13 @@ import {
   getMovies, searchImdb, orderStock, removeMovie,
 } from '../redux/movies/actions';
 import { getUsers } from '../redux/users/actions';
+import { adminInventoryFilter } from '../utilities';
 
 // eslint-disable-next-line react/prefer-stateless-function
 class Admin extends Component {
   state = {
     searchInput: '',
+    stockSearch: '',
   }
 
   componentDidMount() {
@@ -48,14 +50,18 @@ class Admin extends Component {
   };
 
   render() {
-    const { searchInput } = this.state;
+    const { searchInput, stockSearch } = this.state;
+    // console.log(stockSearch);
     const { handleSubmit, handleOrder, handleRemoveMovie } = this;
-    const { movies, users, imdbSearchResults } = this.props;
+    const { users, imdbSearchResults } = this.props;
+    let { movies } = this.props;
+    movies = adminInventoryFilter(movies, stockSearch);
     return (
       <div className="box">
         <div className="columns is-multiline">
           <div className="column is-half">
             <label htmlFor="movieBox1" className="label">Movies In Stock</label>
+            <input onChange={(e) => this.setState({ stockSearch: e.target.value })} value={stockSearch} type="input" placeholder="Search Inventory" className="input" />
             <div id="movieBox1" className="adminBox">
               {
               movies
@@ -96,6 +102,7 @@ class Admin extends Component {
                       id="imdbSearch"
                       onChange={(e) => this.setState({ searchInput: e.target.value })}
                       type="text"
+                      placeholder="Search Movies To Order"
                       className="input"
                       style={{ width: '100%' }}
                       value={searchInput}
