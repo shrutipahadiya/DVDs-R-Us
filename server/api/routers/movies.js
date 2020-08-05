@@ -44,6 +44,7 @@ movieRouter.post('/order', async (req, res) => {
     runtime: movie.runtime,
     writer: movie.writer.split(', '),
     year: movie.year,
+    price: 0.99,
   });
 
   if (newMovie) {
