@@ -1,3 +1,4 @@
+/* eslint-disable no-alert */
 import USER_TYPES from './types';
 
 const axios = require('axios');
@@ -65,5 +66,30 @@ export const signup = (username, password) => (dispatch) => {
     })
     .catch((e) => {
       throw e;
+    });
+};
+
+export const submitReview = (review, rating, movieId) => (dispatch) => {
+  axios.post('/api/users/review', { review, rating, movieId })
+    .then((res) => {
+      if (res.data) {
+        alert('Thank you for leaving a review!');
+        dispatch({
+          type: USER_TYPES.LEAVE_REVIEW,
+          review: res.data,
+        });
+      } else {
+        alert('woops! Something went wrong');
+      }
+    });
+};
+
+export const getReviews = (id) => (dispatch) => {
+  axios.get(`/api/users/reviews/${id}`)
+    .then((res) => {
+      dispatch({
+        type: USER_TYPES.GET_REVIEWS,
+        reviews: res.data.sort((a, b) => (a.createdAt < b.createdAt ? 1 : -1)),
+      });
     });
 };
