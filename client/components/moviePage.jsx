@@ -108,10 +108,10 @@ class MoviePage extends Component {
               <div className="box">
                 <div style={{ display: 'flex', justifyContent: 'space-between' }}>
                   <p className="title is-3">
-                    { movie.title }
+                    {movie.title}
                     {' '}
                     (
-                    { movie.year }
+                    {movie.year}
                     )
                   </p>
                   <p className="title is-4">
@@ -135,13 +135,13 @@ class MoviePage extends Component {
                         ? (
                           <p className="title is-6" style={{ marginTop: '20px' }}>
                             Directors:
-                            { movie.director.join(', ') }
+                            { movie.director.join(', ')}
                           </p>
                         )
                         : (
                           <p className="title is-6" style={{ marginTop: '20px' }}>
                             Director:
-                            { movie.director.join(', ') }
+                            { movie.director.join(', ')}
                           </p>
                         )
                     }
@@ -150,26 +150,29 @@ class MoviePage extends Component {
                         ? (
                           <p className="title is-6" style={{ marginTop: '20px' }}>
                             Writers:
-                            { movie.writer.join(', ') }
+                            { movie.writer.join(', ')}
                           </p>
                         )
                         : (
                           <p className="title is-6" style={{ marginTop: '20px' }}>
                             Writer:
-                            { movie.writer.join(', ') }
+                            { movie.writer.join(', ')}
                           </p>
                         )
                     }
                     <p className="title is-6" style={{ marginTop: '20px' }}>
                       Starring:
-                      { movie.actors.join(', ') }
+                      {movie.actors.join(', ')}
                     </p>
                     <p className="title is-6" style={{ marginTop: '20px' }}>
                       Runtime:
-                      { movie.runtime }
+                      {movie.runtime}
                     </p>
                     <div style={{ display: 'flex', justifyContent: 'flex-end' }}>
                       <div style={{ display: 'flex', flexDirection: 'column' }}>
+                        <p className="subtitle is-5" style={{ marginTop: '20px' }}>
+                          {`Price: $${parseFloat(movie.price).toFixed(2)}`}
+                        </p>
                         <input className="input" type="number" min="1" value={quantity} onChange={(e) => this.setState({ quantity: e.target.value })} />
                         <button style={{ margin: '10px' }} className="button" type="button">Add To Cart</button>
                         <button style={{ margin: '10px' }} className="button" type="button">Add to Wishlist</button>

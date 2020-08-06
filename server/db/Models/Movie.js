@@ -110,7 +110,13 @@ const Movie = db.define('movie', {
       notEmpty: true,
     },
   },
-
+  price: {
+    type: DECIMAL,
+    allowNull: false,
+    validate: {
+      min: 0,
+    },
+  },
 });
 
 module.exports = { Movie };
