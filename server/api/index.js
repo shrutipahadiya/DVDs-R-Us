@@ -4,7 +4,7 @@ const chalk = require('chalk');
 const cookieParser = require('cookie-parser');
 const app = require('./server');
 const { db } = require('../db/db');
-const { User, Session } = require('../db/Models/index');
+const { User, Session, Cart } = require('../db/Models/index');
 
 const PORT = process.env.PORT || 3000;
 const PUBLIC_PATH = path.join(__dirname, '../../public');
@@ -22,9 +22,12 @@ app.use(async (req, res, next) => {
       path: '/',
       expires: new Date(Date.now() + oneWeek),
     });
-    console.log();
     req.session_id = session.id;
-
+    await Cart.create(
+      {
+        sessionId: req.session_id,
+      },
+    );
     next();
   } else {
     req.session_id = req.cookies.session_id;
