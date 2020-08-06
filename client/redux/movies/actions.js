@@ -15,7 +15,6 @@ export const getMovies = () => async (dispatch) => {
 export const searchImdb = (searchInput) => async (dispatch) => {
   await axios.post('/api/movies/imdbsearch', { searchInput })
     .then((res) => {
-      console.log(res.data);
       dispatch({
         type: MOVIE_TYPES.SEARCH_IMDB,
         results: res.data,

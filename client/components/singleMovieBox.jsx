@@ -1,9 +1,12 @@
+/* eslint-disable no-shadow */
 /* eslint-disable no-plusplus */
 /* eslint-disable react/no-unused-state */
 /* eslint-disable react/prop-types */
 /* eslint-disable react/state-in-constructor */
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
+import { connect } from 'react-redux';
+import { addToCart } from '../redux/cart/actions';
 
 class SingleMovieBox extends Component {
   state = {
@@ -11,8 +14,9 @@ class SingleMovieBox extends Component {
   }
 
   render() {
-    const { movie, history } = this.props;
-    console.log(movie);
+    const { movie, history, addToCart } = this.props;
+    const { quantity } = this.state;
+    // console.log(movie);
     return (
       <div key={movie.id} className="box" style={{ display: 'flex', justifyContent: 'space-between' }}>
         <div className="columns">
@@ -56,7 +60,14 @@ class SingleMovieBox extends Component {
                 </div>
               </div>
             </div>
-            <button type="submit" style={{ margin: '10px' }} className="button">Add To Cart</button>
+            <button
+              type="submit"
+              style={{ margin: '10px' }}
+              className="button"
+              onClick={() => addToCart(movie.id, quantity)}
+            >
+              Add To Cart
+            </button>
             <button type="submit" style={{ margin: '10px' }} className="button">Add to Wishlist</button>
           </div>
         </div>
@@ -65,4 +76,8 @@ class SingleMovieBox extends Component {
   }
 }
 
-export default SingleMovieBox;
+const mapDispatchToProps = {
+  addToCart,
+};
+
+export default connect(null, mapDispatchToProps)(SingleMovieBox);

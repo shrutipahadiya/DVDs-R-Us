@@ -1,6 +1,8 @@
 const userRouter = require('express').Router();
 const bcrypt = require('bcrypt');
-const { User, Session, Review } = require('../../db/Models/index');
+const {
+  User, Session, Review, Cart, Order,
+} = require('../../db/Models/index');
 
 // // //  this will need to bring in the models
 // // //  API routes will be in the form of: "userRouter.get()"
@@ -26,6 +28,24 @@ userRouter.post('/login', async (req, res) => {
       } else if (result === true) {
         const session = await Session.findOne({ where: { id: req.session_id } });
         await Session.update({ UserId: user.id }, { where: { id: session.id } });
+        const activeCart = await Cart.findOne({
+          where: {
+            UserId: user.id,
+            isActive: true,
+          },
+        });
+        const currentCart = await Cart.findOne({
+          where: {
+            sessionId: req.session_id,
+          },
+        });
+        if (activeCart) {
+          await Order.update({ CartId: currentCart.id }, { where: { CartId: activeCart.id } });
+        }
+        await Cart.update({ UserId: user.id }, { where: { id: currentCart.id } });
+        if (activeCart) {
+          await Cart.destroy({ where: { id: activeCart.id } });
+        }
         await res.status(200).send(user);
       } else {
         res.sendStatus(401);
@@ -55,7 +75,11 @@ userRouter.delete('/logout', async (req, res) => {
   });
 
   req.session_id = session.id;
-
+  await Cart.create(
+    {
+      sessionId: req.session_id,
+    },
+  );
   res.sendStatus(204);
 });
 
@@ -70,6 +94,7 @@ userRouter.post('/signup', async (req, res) => {
     if (!user) {
       res.sendStatus(400);
     } else {
+      await Cart.update({ UserId: user.id }, { where: { sessionId: req.session_id } });
       await res.status(200).send(user);
     }
   }
