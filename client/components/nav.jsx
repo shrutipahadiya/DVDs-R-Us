@@ -62,6 +62,15 @@ class Nav extends Component {
                   )
                   : null
               }
+              {
+                loggedIn
+                  ? (
+                    <Link style={{ color: 'white' }} to={`/myaccount/${loggedInUser.id}`}>
+                      My Account
+                    </Link>
+                  )
+                  : null
+              }
             </div>
           </div>
         </nav>
